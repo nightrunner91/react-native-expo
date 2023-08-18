@@ -5,7 +5,10 @@ import {
   SafeAreaView,
   View,
   FlatList,
+  Platform,
+  NativeModules,
 } from 'react-native';
+const { StatusBarManager } = NativeModules;
 
 const DATA = [
   {
@@ -70,6 +73,8 @@ const DATA = [
   },
 ];
 
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
+
 const Item = ({title}) => (
   <View
     style={styles.item}
@@ -88,16 +93,18 @@ export default function App() {
         keyExtractor={item => item.id}
       />
       <StatusBar
-        barStyle="dark-content"
-        backgroundColor="#fff" />
+        barStyle="light-content"
+        translucent />
     </SafeAreaView>
   );
 }
 
+console.log(STATUSBAR_HEIGHT)
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight
+    paddingTop: STATUSBAR_HEIGHT,
   },
   item: {
     backgroundColor: '#ccc',
