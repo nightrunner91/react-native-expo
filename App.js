@@ -8,6 +8,8 @@ import {
   Platform,
   NativeModules,
 } from 'react-native';
+import { SIZES, COLORS, RADIUS } from './constants'
+
 const { StatusBarManager } = NativeModules;
 
 const DATA = [
@@ -73,14 +75,13 @@ const DATA = [
   },
 ];
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager?.HEIGHT;
 
 const Item = ({title}) => (
   <View
-    style={styles.item}
-    flexDirection="row"
-    alignItems="center">
+    style={styles.item}>
     <Text style={styles.title}>{title}</Text>
+    <Text style={styles.text}>{title} {title}</Text>
   </View>
 );
 
@@ -88,8 +89,11 @@ export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        style={styles.list}
         data={DATA}
-        renderItem={({item}) => <Item title={item.title} />}
+        renderItem={({item}) => 
+          <Item title={item.title} />
+        }
         keyExtractor={item => item.id}
       />
       <StatusBar
@@ -99,19 +103,29 @@ export default function App() {
   );
 }
 
-console.log(STATUSBAR_HEIGHT)
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: STATUSBAR_HEIGHT,
   },
+  list: {
+    paddingHorizontal: SIZES.medium,
+    paddingVertical: SIZES.small,
+  },
   item: {
-    backgroundColor: '#ccc',
-    marginBottom: 12,
-    padding: 12,
+    backgroundColor: COLORS.teal[500], 
+    marginBottom: SIZES.medium,
+    paddingVertical: SIZES.small,
+    paddingHorizontal: SIZES.medium,
+    borderRadius: RADIUS.medium,
   },
   title: {
-    fontSize: 16,
+    fontSize: SIZES.large,
+    fontWeight: "bold",
+    color: COLORS["light-text"].primary,
+  },
+  text: {
+    fontSize: SIZES.medium,
+    color: COLORS["light-text"].primary,
   },
 });
