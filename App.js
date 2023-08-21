@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { useKeepAwake } from 'expo-keep-awake';
 import {
   StyleSheet,
   Text,
@@ -15,7 +16,7 @@ const { StatusBarManager } = NativeModules;
 const DATA = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'First Item 1111',
+    title: 'First Item',
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
@@ -86,6 +87,8 @@ const Item = ({title}) => (
 );
 
 export default function App() {
+  useKeepAwake();
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
@@ -98,7 +101,7 @@ export default function App() {
       />
       <StatusBar
         barStyle="light-content"
-        translucent />
+        backgroundColor={COLORS.grey[200]} />
     </SafeAreaView>
   );
 }
@@ -109,23 +112,25 @@ const styles = StyleSheet.create({
     paddingTop: STATUSBAR_HEIGHT,
   },
   list: {
-    paddingHorizontal: SIZES.medium,
-    paddingVertical: SIZES.small,
+    paddingHorizontal: SIZES.zero,
+    paddingTop: SIZES.large,
   },
   item: {
-    backgroundColor: COLORS.teal[500], 
-    marginBottom: SIZES.medium,
+    backgroundColor: COLORS.white, 
+    marginBottom: SIZES.zero,
     paddingVertical: SIZES.small,
     paddingHorizontal: SIZES.medium,
-    borderRadius: RADIUS.medium,
+    borderRadius: RADIUS.zero,
+    borderBottomColor: COLORS.grey[300],
+    borderBottomWidth: 1,
   },
   title: {
     fontSize: SIZES.large,
     fontWeight: "bold",
-    color: COLORS["light-text"].primary,
+    color: COLORS["dark-text"].primary,
   },
   text: {
     fontSize: SIZES.medium,
-    color: COLORS["light-text"].primary,
+    color: COLORS["dark-text"].primary,
   },
 });

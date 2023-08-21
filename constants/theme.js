@@ -1,4 +1,5 @@
 const SIZES = {
+  zero: 0,
   xSmall: 10,
   small: 12,
   medium: 16,
@@ -348,6 +349,7 @@ const SHADOWS = {
 };
 
 const RADIUS = {
+  zero: 0,
   xSmall: 3,
   small: 4,
   medium: 6,
